@@ -1,0 +1,20 @@
+{
+    "name": "testing-prng",
+    "version": "2021.2.20",
+    "description": "Robert Jenkins PRNG and helper tools.",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/*"
+    ],
+    "scripts": {
+        "prepack": "npx tsc --declaration"
+    },
+    "repository": "https://github.com/adedomin/testing-prng",
+    "author": "Anthony DeDominic <adedomin@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^4.1.5",
+        "@tsconfig/node14": "^1.0.0"
+    }
+}
