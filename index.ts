@@ -54,10 +54,14 @@ class PRNG
      */
     nextRand()
     {
-        const e = this.#a - ((this.#b << 27) | (this.#b >> 5));
-        this.#a = this.#b ^ ((this.#c << 17) | (this.#b >> 15));
-        this.#b = this.#c + this.#d;
-        this.#c = this.#d + e;
+        const a = this.#a;
+        const b = this.#b;
+        const c = this.#c;
+        const d = this.#d;
+        const e = a - ((b << 27) | (b >> 5));
+        this.#a = b ^ ((c << 17) | (b >> 15));
+        this.#b = c + d;
+        this.#c = d + e;
         this.#d = e + this.#a;
         return this.#d;
     }

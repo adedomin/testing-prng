@@ -54,10 +54,14 @@ class PRNG {
      * use (x >>> 0) if you need positive numbers.
      */
     nextRand() {
-        const e = __classPrivateFieldGet(this, _a) - ((__classPrivateFieldGet(this, _b) << 27) | (__classPrivateFieldGet(this, _b) >> 5));
-        __classPrivateFieldSet(this, _a, __classPrivateFieldGet(this, _b) ^ ((__classPrivateFieldGet(this, _c) << 17) | (__classPrivateFieldGet(this, _b) >> 15)));
-        __classPrivateFieldSet(this, _b, __classPrivateFieldGet(this, _c) + __classPrivateFieldGet(this, _d));
-        __classPrivateFieldSet(this, _c, __classPrivateFieldGet(this, _d) + e);
+        const a = __classPrivateFieldGet(this, _a);
+        const b = __classPrivateFieldGet(this, _b);
+        const c = __classPrivateFieldGet(this, _c);
+        const d = __classPrivateFieldGet(this, _d);
+        const e = a - ((b << 27) | (b >> 5));
+        __classPrivateFieldSet(this, _a, b ^ ((c << 17) | (b >> 15)));
+        __classPrivateFieldSet(this, _b, c + d);
+        __classPrivateFieldSet(this, _c, d + e);
         __classPrivateFieldSet(this, _d, e + __classPrivateFieldGet(this, _a));
         return __classPrivateFieldGet(this, _d);
     }
