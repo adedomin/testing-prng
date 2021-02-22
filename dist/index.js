@@ -54,16 +54,17 @@ class PRNG {
      * use (x >>> 0) if you need positive numbers.
      */
     nextRand() {
-        const a = __classPrivateFieldGet(this, _a);
-        const b = __classPrivateFieldGet(this, _b);
-        const c = __classPrivateFieldGet(this, _c);
-        const d = __classPrivateFieldGet(this, _d);
-        const e = a - ((b << 27) | (b >> 5));
-        __classPrivateFieldSet(this, _a, b ^ ((c << 17) | (b >> 15)));
-        __classPrivateFieldSet(this, _b, c + d);
-        __classPrivateFieldSet(this, _c, d + e);
-        __classPrivateFieldSet(this, _d, e + __classPrivateFieldGet(this, _a));
-        return __classPrivateFieldGet(this, _d);
+        const a = __classPrivateFieldGet(this, _a) | 0;
+        const b = __classPrivateFieldGet(this, _b) | 0;
+        const c = __classPrivateFieldGet(this, _c) | 0;
+        const d = __classPrivateFieldGet(this, _d) | 0;
+        const e = a - ((b << 27) | (b >> 5)) | 0;
+        __classPrivateFieldSet(this, _a, b ^ ((c << 17) | (b >> 15)) | 0);
+        __classPrivateFieldSet(this, _b, c + d | 0); // Should overflow correctly
+        __classPrivateFieldSet(// Should overflow correctly
+        this, _c, d + e | 0);
+        __classPrivateFieldSet(this, _d, e + __classPrivateFieldGet(this, _a) | 0);
+        return __classPrivateFieldGet(this, _d) | 0;
     }
     /**
      * Choose between a set of `choices`

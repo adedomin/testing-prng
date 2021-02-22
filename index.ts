@@ -54,16 +54,16 @@ class PRNG
      */
     nextRand()
     {
-        const a = this.#a;
-        const b = this.#b;
-        const c = this.#c;
-        const d = this.#d;
-        const e = a - ((b << 27) | (b >> 5));
-        this.#a = b ^ ((c << 17) | (b >> 15));
-        this.#b = c + d;
-        this.#c = d + e;
-        this.#d = e + this.#a;
-        return this.#d;
+        const a = this.#a | 0;
+        const b = this.#b | 0;
+        const c = this.#c | 0;
+        const d = this.#d | 0;
+        const e = a - ((b << 27) | (b >> 5))  | 0;
+        this.#a = b ^ ((c << 17) | (b >> 15)) | 0;
+        this.#b = c + d       | 0; // Should overflow correctly
+        this.#c = d + e       | 0;
+        this.#d = e + this.#a | 0;
+        return this.#d        | 0;
     }
 
     /**
