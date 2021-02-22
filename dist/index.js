@@ -75,7 +75,7 @@ class PRNG {
      */
     choose(choices) {
         if (choices.length < 1)
-            throw new RangeError('choices must contain at least 1 choice.');
+            return undefined; // nothing to choose
         const max = choices.reduce((acc, { w }) => acc + w | 0, 0);
         if (max < 0)
             throw new RangeError(`Sum of Choice[].w should be positive; got: ${max}`);
