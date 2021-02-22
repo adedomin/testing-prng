@@ -18,7 +18,7 @@ declare class PRNG {
     /**
      * Choose between a set of `choices`
      * choises are objects with a `{ w: number, v: any }` signature.
-     * where `w` is expected to be a postive natural integer,
+     * where `w` is expected to be a postive natural integer with a maxium value of 2**31-1,
      * greater than 0, whole number
      * @return the randomly chosen choise
      */

@@ -69,19 +69,20 @@ class PRNG
     /**
      * Choose between a set of `choices`
      * choises are objects with a `{ w: number, v: any }` signature.
-     * where `w` is expected to be a postive natural integer,
+     * where `w` is expected to be a postive natural integer with a maxium value of 2**31-1,
      * greater than 0, whole number
      * @return the randomly chosen choise
      */
     choose(choices: Choice[]): any
     {
-        if (choices.length < 1) throw new Error('Choices must contain at least 1 choice.')
-        const max = choices.reduce((acc, { w }) => acc + (w | 0), 0);
+        if (choices.length < 1) throw new RangeError('choices must contain at least 1 choice.');
+        const max = choices.reduce((acc, { w }) => acc + w | 0, 0);
+        if (max < 0) throw new RangeError(`Sum of Choice[].w should be positive; got: ${max}`);
 
         // Account for modulo bias
         let pick: number;
         do {
-            // random has to be positive;
+            // random has to be positive
             // >>> = unsigned
             pick = (this.nextRand()>>>0);
         } while(pick >= (PRNG.RAND_MAX - PRNG.RAND_MAX % max));
@@ -90,8 +91,8 @@ class PRNG
 
         let acc = 0;
         return choices.find(({ w }) => {
-            if (pick >= acc && pick < (acc + (w | 0))) return true;
-            acc += (w | 0);
+            if (pick >= acc && pick < (acc + w | 0)) return true;
+            acc = acc + w | 0;
             return false;
         })?.v;
     }
@@ -104,7 +105,7 @@ class PRNG
         // 64 chars (not base64)
         const values = '-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         return [ ...this.take(len ?? 8) ]
-            .map(v => values.charAt((v>>>0) as number % values.length))
+            .map((v: number) => values.charAt((v>>>0) % values.length))
             .join('');
 
     }
